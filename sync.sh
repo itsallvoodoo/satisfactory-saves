@@ -1,10 +1,18 @@
 #!/bin/bash
-filedate=date -r /home/steam/.config/Epic/FactoryGame/Saved/SaveGames/server/fomo_autosave_2.sav
+savepath="/home/steam/.config/Epic/FactoryGame/Saved/SaveGames/server/"
+savefile=${savepath}$(ls -Art ${savepath} | tail -n 1)
+gitfile="/home/steam/satisfactory-saves/sfod.sav"
 
-cp /home/steam/.config/Epic/FactoryGame/Saved/SaveGames/server/fomo_autosave_2.sav /home/steam/satisfactory-saves/sfod.sav
+#echo "Saving file ${savefile}"
+
+filedate=$(date -r ${savefile})
+
+#echo "filedate is ${filedate}"
+
+cp ${savefile} ${gitfile}
 
 git add .
 
-git commit -m "Uploading new save for $filedate"
+git commit -m "Uploading new save for ${filedate}"
 
 git push
